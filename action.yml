@@ -16,9 +16,6 @@ runs:
   steps:
     - name: Checkout repository
       uses: actions/checkout@v3
-      with:
-        path: ${{ github.repository }}
-        fetch-depth: 0
 
     #- name: Test Composite Actions
       #shell: bash
