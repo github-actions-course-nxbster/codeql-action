@@ -1,0 +1,34 @@
+name: 'CodeQL Composite Action'
+description: 'Composite action handling all elements of CodeQL scanning'
+inputs:
+  LANGUAGE:
+    description: 'Language or set of languages to scan for using CodeQL'
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Test Composite Actions
+      run: |
+        echo "Testing Composite action"
+        pwd
+        ls -a
+        echo ${{ inputs.LANGUAGE }}
+
+    # Initializes the CodeQL tools for scanning [test].
+    #- name: Initialize CodeQL
+      #uses: github/codeql-action/init@v2
+      #with:
+        #languages: ${{ matrix.language }}
+        #config-file: ./.github/codeql/codeql-config.yml
+
+    #- name: Autobuild
+      #uses: github/codeql-action/autobuild@v2
+
+    #- name: Perform CodeQL Analysis
+      #uses: github/codeql-action/analyze@v2
+      #with:
+        #category: "/language:${{matrix.language}}"
