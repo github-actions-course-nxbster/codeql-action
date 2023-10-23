@@ -14,8 +14,11 @@ inputs:
 runs:
   using: "composite"
   steps:
-    #- name: Checkout repository
-      #uses: actions/checkout@v3
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      with:
+        path: ${{ github.repository }}
+        fetch-depth: 0
 
     #- name: Test Composite Actions
       #shell: bash
@@ -43,4 +46,5 @@ runs:
     - name: Create GitHub Issues
       shell: bash
       run: |
+        ls -a
         python parse-sarif.py
