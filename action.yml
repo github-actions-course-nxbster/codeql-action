@@ -29,7 +29,7 @@ runs:
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v2
       with:
-        languages: ${{ inputs.language }}
+        languages: [${{ inputs.language }}]
         config-file: ./.github/codeql/codeql-config.yml
 
     - name: Autobuild
