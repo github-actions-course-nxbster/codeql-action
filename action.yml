@@ -4,6 +4,12 @@ inputs:
   language:
     description: 'Language or set of languages to scan for using CodeQL'
     required: true
+  GITHUB_TOKEN:
+    description: 'Derivative token for using the GitHub REST API'
+    required: false
+  GITHUB_REPOSITORY:
+    description: 'Calling repository of composite actions'
+    reauired: false
 
 runs:
   using: "composite"
@@ -24,7 +30,7 @@ runs:
       uses: github/codeql-action/init@v2
       with:
         languages: ${{ inputs.language }}
-        #config-file: ./.github/codeql/codeql-config.yml
+        config-file: ./.github/codeql/codeql-config.yml
 
     - name: Autobuild
       uses: github/codeql-action/autobuild@v2
@@ -33,3 +39,8 @@ runs:
       uses: github/codeql-action/analyze@v2
       with:
         category: "/language:${{ inputs.language }}"
+
+    - name: Create GitHub Issues
+      shell: bash
+      run: |
+        python parse-sarif.py
