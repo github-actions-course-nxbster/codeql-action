@@ -47,4 +47,6 @@ runs:
       shell: bash
       run: |
         ls -a
+        pwd
+        echo ${{ github.repository }}
         python parse-sarif.py
