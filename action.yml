@@ -51,7 +51,8 @@ runs:
     - name: Create GitHub Issues
       shell: bash
       run: |
-        ls -a
-        pwd
-        echo ${{ github.repository }}
+        pip install sarif-tools
+        pip install jira
         python codeql-action/parse-sarif.py
+      env:
+        Greeting: 'Hello'
