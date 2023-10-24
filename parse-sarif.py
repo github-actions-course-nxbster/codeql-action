@@ -29,9 +29,12 @@ sarif_data = loader.load_sarif_file('../results/csharp.sarif')
 print(sarif_data)
 record_data = sarif_data.get_records()
 
+vulnerability_count = 0
+issues_created = 0
 #Loop through identified vulnerabilities
 for vulnerability in record_data:
 
+    vulnerability_count += 1
     #Create unique title for vulnerability
     issue_title = vulnerability["Code"]
     issue_body = str(vulnerability["Tool"]) + str(vulnerability["Location"]) + str(vulnerability["Line"]) + str(vulnerability["Code"])
@@ -44,4 +47,9 @@ for vulnerability in record_data:
         #Create new issue in Jira
         fields = {"project": { "key": JIRA_PROJECT_NAME }, "summary" : issue_body, "issuetype": { "name": "Task" }}
         create_issue = jira.create_issue(fields=fields)
+        issues_created += 1
         print("Issue Created!")
+
+#Set output values summarizing scan results
+os.system("echo vulnerability_count={} >> $GITHUB_OUTPUT".format(vulnerability_count))
+os.system("echo issues_created={} >> $GITHUB_OUTPUT".format(issues_created))
