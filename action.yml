@@ -4,12 +4,18 @@ inputs:
   language:
     description: 'Language or set of languages to scan for using CodeQL'
     required: true
-  GITHUB_TOKEN:
-    description: 'Derivative token for using the GitHub REST API'
-    required: false
-  GITHUB_REPOSITORY:
-    description: 'Calling repository of composite actions'
-    reauired: false
+  JIRA_BASE_URL:
+    descripption: 'Organization Jira tenant url'
+    required: true
+  JIRA_USER_EMAIL:
+    description: 'Email of user creating Jira Issue'
+    required: true
+  JIRA_API_TOKEN:
+    description: 'API token authorizing Jira API connection'
+    required: true
+  JIRA_PROJECT_NAME:
+    description: 'Project in which issue is to be created'
+    required: true
 
 runs:
   using: "composite"
@@ -55,4 +61,7 @@ runs:
         pip install jira
         python codeql-action/parse-sarif.py
       env:
-        Greeting: 'Hello'
+        JIRA_BASE_URL: ${{ inputs.JIRA_BASE_URL }}
+        JIRA_USER_EMAIL: ${{ inputs.JIRA_USER_EMAIL }}
+        JIRA_API_TOKEN: ${{ inputs.JIRA_API_TOKEN }}
+        JIRA_PROJECT_NAME: ${{ inputs.JIRA_PROJECT_NAME }}

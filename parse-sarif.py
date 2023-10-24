@@ -3,13 +3,25 @@ from sarif import loader
 import requests
 import json
 import sys
+from jira import JIRA 
 
-#Parse in request parameters
-print(os.environ['Greeting'])
+#Parse in required parameters
+JIRA_BASE_URL = os.environ['JIRA_BASE_URL']
+JIRA_USER_EMAIL = os.environ['JIRA_USER_EMAIL']
+JIRA_API_TOKEN = os.environ['JIRA_API_TOKEN']
+JIRA_PROJECT_NAME = os.environ['JIRA_PROJECT_NAME']
+
+#Set up Jira API Request
+jiraOptions = {'server': JIRA_BASE_URL}
+jira = JIRA(options=jiraOptions, basic_auth=( 
+    JIRA_USER_EMAIL, JIRA_API_TOKEN)) 
 
 #Get existing issues in Jira Project
-#issues = []
-#response = requests.get(issue_api_url,headers=headers)
+issues = []
+jql_str = 'project = {project}'.format(project = JIRA_PROJECT_NAME)
+for singleIssue in jira.search_issues(jql_str=jql_str): 
+    print('{}: {}:{}'.format(singleIssue.key, singleIssue.fields.summary, 
+                             singleIssue.fields.reporter.displayName)) 
 
 #Read in Sarif File
 #sarif_data = loader.load_sarif_file('../results/csharp.sarif')
