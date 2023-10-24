@@ -20,8 +20,13 @@ jira = JIRA(options=jiraOptions, basic_auth=(
 issues = []
 jql_str = 'project = {project}'.format(project = JIRA_PROJECT_NAME)
 for singleIssue in jira.search_issues(jql_str=jql_str): 
+    issues.append(singleIssue.fields.summary)
     print('{}: {}:{}'.format(singleIssue.key, singleIssue.fields.summary, 
                              singleIssue.fields.reporter.displayName)) 
+
+#TEST: Create Jira Issue
+fields = {"project": { "key": JIRA_PROJECT_NAME }, "summary" : "Testing 123", "issuetype": { "name": "Task" }}
+create_issue = jira.create_issue(fields=json.loads(fields))
 
 #Read in Sarif File
 #sarif_data = loader.load_sarif_file('../results/csharp.sarif')
