@@ -36,7 +36,8 @@ runs:
       uses: github/codeql-action/init@v2
       with:
         languages: ${{ inputs.language }}
-        config-file: ./.github/codeql/codeql-config.yml
+        queries: security-and-quality
+        #config-file: ./.github/codeql/codeql-config.yml
 
     - name: Autobuild
       uses: github/codeql-action/autobuild@v2
