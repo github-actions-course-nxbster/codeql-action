@@ -28,3 +28,6 @@ steps:
 ### Outputs:
 - `vulnerability_count` - Count detailing the number of vulnerabilities identified by CodeQL
 - `issues_created` - Count of new Jira issues created
+
+### Logging
+- Scan results are saved on the runner machine in the `$HOME/results/csharp.sharf` file
