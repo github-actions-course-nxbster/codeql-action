@@ -24,27 +24,24 @@ for singleIssue in jira.search_issues(jql_str=jql_str):
     print('{}: {}:{}'.format(singleIssue.key, singleIssue.fields.summary, 
                              singleIssue.fields.reporter.displayName)) 
 
-#TEST: Create Jira Issue
-fields = {"project": { "key": JIRA_PROJECT_NAME }, "summary" : "Testing 123", "issuetype": { "name": "Task" }}
-create_issue = jira.create_issue(fields=fields)
-
 #Read in Sarif File
-#sarif_data = loader.load_sarif_file('../results/csharp.sarif')
-#record_data = sarif_data.get_records()
+sarif_data = loader.load_sarif_file('../../results/csharp.sarif')
+print(sarif_data)
+record_data = sarif_data.get_records()
 
 #Loop through identified vulnerabilities
-#for vulnerability in record_data:
+for vulnerability in record_data:
 
     #Create unique title for vulnerability
-    #issue_title = vulnerability["Code"]
-    #issue_body = str(vulnerability["Tool"]) + str(vulnerability["Location"]) + str(vulnerability["Line"]) + str(vulnerability["Code"])
+    issue_title = vulnerability["Code"]
+    issue_body = str(vulnerability["Tool"]) + str(vulnerability["Location"]) + str(vulnerability["Line"]) + str(vulnerability["Code"])
     
     #Check if vulnerability already exists in Jira
-    #if issue_body in issues:
+    if issue_body in issues:
         #Do not create dupicate issues in Jira
-        #print("Duplicate identified")
-    #else:
+        print("Duplicate identified")
+    else:
         #Create new issue in Jira
-        #jira_data = {"ref": "master", "inputs": {"title": issue_title, "body": issue_body}}
-        #trigger_jira_action = requests.post(jira_creation_url,data=json.dumps(jira_data),headers=pat_headers)
-        #print("Issue Created!")
+        fields = {"project": { "key": JIRA_PROJECT_NAME }, "summary" : "Testing 123", "issuetype": { "name": "Task" }}
+        create_issue = jira.create_issue(fields=fields)
+        print("Issue Created!")

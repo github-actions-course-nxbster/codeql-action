@@ -23,28 +23,28 @@ runs:
     - name: Checkout caller repository
       uses: actions/checkout@v3
 
-    #- name: Test Composite Actions
-      #shell: bash
-      #run: |
-        #echo "Testing Composite action"
-        #pwd
-        #ls -a
-        #echo ${{ inputs.language }}
+    - name: Test Composite Actions
+      shell: bash
+      run: |
+        echo "Testing Composite action"
+        pwd
+        ls -a
+        echo ${{ inputs.language }}
 
     # Initializes the CodeQL tools for scanning [test].
-    #- name: Initialize CodeQL
-      #uses: github/codeql-action/init@v2
-      #with:
-        #languages: ${{ inputs.language }}
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v2
+      with:
+        languages: ${{ inputs.language }}
         #config-file: ./.github/codeql/codeql-config.yml
 
-    #- name: Autobuild
-      #uses: github/codeql-action/autobuild@v2
+    - name: Autobuild
+      uses: github/codeql-action/autobuild@v2
 
-    #- name: Perform CodeQL Analysis
-      #uses: github/codeql-action/analyze@v2
-      #with:
-        #category: "/language:${{ inputs.language }}"
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v2
+      with:
+        category: "/language:${{ inputs.language }}"
 
     - name: Checkout composite repository
       uses: actions/checkout@v3
