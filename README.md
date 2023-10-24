@@ -26,4 +26,5 @@ steps:
 - `JIRA_PROJECT_NAME` (required) - Jira project destination for created issued
 
 ### Outputs:
-- None
+- `vulnerability_count` - Count detailing the number of vulnerabilities identified by CodeQL
+- `issues_created` - Count of new Jira issues created
