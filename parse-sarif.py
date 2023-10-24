@@ -26,7 +26,7 @@ for singleIssue in jira.search_issues(jql_str=jql_str):
 
 #TEST: Create Jira Issue
 fields = {"project": { "key": JIRA_PROJECT_NAME }, "summary" : "Testing 123", "issuetype": { "name": "Task" }}
-create_issue = jira.create_issue(fields=json.loads(fields))
+create_issue = jira.create_issue(fields=fields)
 
 #Read in Sarif File
 #sarif_data = loader.load_sarif_file('../results/csharp.sarif')
