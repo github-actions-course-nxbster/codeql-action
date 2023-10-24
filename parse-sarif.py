@@ -42,6 +42,6 @@ for vulnerability in record_data:
         print("Duplicate identified")
     else:
         #Create new issue in Jira
-        fields = {"project": { "key": JIRA_PROJECT_NAME }, "summary" : "Testing 123", "issuetype": { "name": "Task" }}
+        fields = {"project": { "key": JIRA_PROJECT_NAME }, "summary" : issue_body, "issuetype": { "name": "Task" }}
         create_issue = jira.create_issue(fields=fields)
         print("Issue Created!")
