@@ -71,5 +71,5 @@ runs:
     - name: Review Scan Results
       shell: bash
       run: |
-        echo "Scan identified ${{ steps.python.outputs.vulnerability_count }}"
+        echo " CodeQL scan identified ${{ steps.python.outputs.vulnerability_count }} vulnerabilities"
         echo "${{ steps.python.outputs.issues_created }} new jira issues created"
