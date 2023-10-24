@@ -14,8 +14,8 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+    - name: Checkout caller repository
+      uses: actions/checkout@v3
 
     #- name: Test Composite Actions
       #shell: bash
@@ -40,10 +40,18 @@ runs:
       #with:
         #category: "/language:${{ inputs.language }}"
 
+    - name: Checkout composite repository
+      uses: actions/checkout@v3
+      with: 
+        repository: 'ogithub-actions-course-nxbster/codeql-action'
+        ref: 'main'
+        path: 'codeql-action'
+
+
     - name: Create GitHub Issues
       shell: bash
       run: |
         ls -a
         pwd
         echo ${{ github.repository }}
-        python parse-sarif.py
+        python codeql-action/parse-sarif.py
