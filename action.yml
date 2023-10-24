@@ -43,7 +43,7 @@ runs:
     - name: Checkout composite repository
       uses: actions/checkout@v3
       with: 
-        repository: 'ogithub-actions-course-nxbster/codeql-action'
+        repository: 'github-actions-course-nxbster/codeql-action'
         ref: 'main'
         path: 'codeql-action'
 
