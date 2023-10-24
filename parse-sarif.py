@@ -25,7 +25,7 @@ for singleIssue in jira.search_issues(jql_str=jql_str):
                              singleIssue.fields.reporter.displayName)) 
 
 #Read in Sarif File
-sarif_data = loader.load_sarif_file('../../results/csharp.sarif')
+sarif_data = loader.load_sarif_file('../results/csharp.sarif')
 print(sarif_data)
 record_data = sarif_data.get_records()
 
