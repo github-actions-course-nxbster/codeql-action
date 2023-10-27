@@ -24,6 +24,7 @@ print(jira.fields())
 issues = []
 jql_str = 'project = {project}'.format(project = JIRA_PROJECT_NAME)
 for singleIssue in jira.search_issues(jql_str=jql_str): 
+    print(singleIssue.fields.customfield_10033)
     issues.append(singleIssue.fields.summary)
 
 #Set up GitHub security API Request
