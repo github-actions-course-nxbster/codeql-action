@@ -32,7 +32,7 @@ github_headers = {"Authorization" : "token {}".format(GITHUB_TOKEN)}
 github_alerts_api_url = "https://api.github.com/repos/{}/code-scanning/alerts".format(GITHUB_REPOSITORY)
 
 #Fetch GitHub repository alert data
-alerts_response = requests.get(github_alerts_api_url, headers=headers)
+alerts_response = requests.get(github_alerts_api_url, headers=github_headers)
 alerts_response_json = json.loads(alerts_response.content)
 print(alerts_response_json)
 
