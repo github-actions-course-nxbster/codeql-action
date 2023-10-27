@@ -18,13 +18,13 @@ GITHUB_REPOSITORY = os.environ['GITHUB_REPOSITORY']
 jiraOptions = {'server': JIRA_BASE_URL}
 jira = JIRA(options=jiraOptions, basic_auth=( 
     JIRA_USER_EMAIL, JIRA_API_TOKEN)) 
+print(jira.fields())
 
 #Get existing issues in Jira Project
 issues = []
 jql_str = 'project = {project}'.format(project = JIRA_PROJECT_NAME)
 for singleIssue in jira.search_issues(jql_str=jql_str): 
-    issues.append(singleIssue.fields)
-print(issues)
+    issues.append(singleIssue.fields.summary)
 
 #Set up GitHub security API Request
 github_headers = {"Authorization" : "token {}".format(GITHUB_TOKEN)}
