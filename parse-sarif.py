@@ -24,6 +24,7 @@ issues = []
 jql_str = 'project = {project}'.format(project = JIRA_PROJECT_NAME)
 for singleIssue in jira.search_issues(jql_str=jql_str): 
     issues.append(singleIssue.fields)
+print(issues)
 
 #Set up GitHub security API Request
 github_headers = {"Authorization" : "token {}".format(GITHUB_TOKEN)}
