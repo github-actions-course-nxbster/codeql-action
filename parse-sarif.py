@@ -23,9 +23,7 @@ jira = JIRA(options=jiraOptions, basic_auth=(
 issues = []
 jql_str = 'project = {project}'.format(project = JIRA_PROJECT_NAME)
 for singleIssue in jira.search_issues(jql_str=jql_str): 
-    issues.append(singleIssue.fields.summary)
-    print('{}: {}:{}'.format(singleIssue.key, singleIssue.fields.summary, 
-                             singleIssue.fields.reporter.displayName)) 
+    issues.append(singleIssue.fields)
 
 #Set up GitHub security API Request
 github_headers = {"Authorization" : "token {}".format(GITHUB_TOKEN)}
@@ -35,6 +33,10 @@ github_alerts_api_url = "https://api.github.com/repos/{}/code-scanning/alerts".f
 alerts_response = requests.get(github_alerts_api_url, headers=github_headers)
 alerts_response_json = json.loads(alerts_response.content)
 print(alerts_response_json)
+
+#Resolve open Jira issues that have have been addressed
+
+#Add newly identified CodeQL alerts to Jira 
 
 #Read in Sarif File
 #sarif_data = loader.load_sarif_file('../results/csharp.sarif')
