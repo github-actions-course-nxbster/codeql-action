@@ -44,12 +44,12 @@ runs:
       #with:
         #category: "/language:${{ inputs.language }}"
 
-    #- name: Checkout composite repository
-      #uses: actions/checkout@v3
-      #with: 
-        #repository: 'github-actions-course-nxbster/codeql-action'
-        #ref: 'main'
-        #path: 'codeql-action'
+    - name: Checkout composite repository
+      uses: actions/checkout@v3
+      with: 
+        repository: 'github-actions-course-nxbster/codeql-action'
+        ref: 'main'
+        path: 'codeql-action'
 
     - name: Create Jira Issues
       id: python
