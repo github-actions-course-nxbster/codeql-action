@@ -16,6 +16,12 @@ inputs:
   JIRA_PROJECT_NAME:
     description: 'Project in which issue is to be created'
     required: true
+  GITHUB_TOKEN:
+    description: 'Secure token for GitHub API Access'
+    required: true
+  REPOSITORY_NAME:
+    description: 'GitHub Enterprise Cloud organization and repository associated with action'
+    required: true
 
 runs:
   using: "composite"
@@ -23,37 +29,27 @@ runs:
     - name: Checkout caller repository
       uses: actions/checkout@v3
 
-    - name: Test Composite Actions
-      shell: bash
-      run: |
-        echo "Testing Composite action"
-        pwd
-        ls -a
-        echo ${{ inputs.language }}
-
     # Initializes the CodeQL tools for scanning [test].
-    - name: Initialize CodeQL
-      uses: github/codeql-action/init@v2
-      with:
-        languages: ${{ inputs.language }}
-        queries: security-and-quality
-        #config-file: ./.github/codeql/codeql-config.yml
+    #- name: Initialize CodeQL
+      #uses: github/codeql-action/init@v2
+      #with:
+        #languages: ${{ inputs.language }}
+        #queries: security-and-quality
 
-    - name: Autobuild
-      uses: github/codeql-action/autobuild@v2
+    #- name: Autobuild
+      #uses: github/codeql-action/autobuild@v2
 
-    - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v2
-      with:
-        category: "/language:${{ inputs.language }}"
+    #- name: Perform CodeQL Analysis
+      #uses: github/codeql-action/analyze@v2
+      #with:
+        #category: "/language:${{ inputs.language }}"
 
-    - name: Checkout composite repository
-      uses: actions/checkout@v3
-      with: 
-        repository: 'github-actions-course-nxbster/codeql-action'
-        ref: 'main'
-        path: 'codeql-action'
-
+    #- name: Checkout composite repository
+      #uses: actions/checkout@v3
+      #with: 
+        #repository: 'github-actions-course-nxbster/codeql-action'
+        #ref: 'main'
+        #path: 'codeql-action'
 
     - name: Create Jira Issues
       id: python
@@ -67,9 +63,11 @@ runs:
         JIRA_USER_EMAIL: ${{ inputs.JIRA_USER_EMAIL }}
         JIRA_API_TOKEN: ${{ inputs.JIRA_API_TOKEN }}
         JIRA_PROJECT_NAME: ${{ inputs.JIRA_PROJECT_NAME }}
+        GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
+        REPOSITORY_NAME: ${{ inputs.GITHUB_REPOSITORY }}
     
-    - name: Review Scan Results
-      shell: bash
-      run: |
-        echo " CodeQL scan identified ${{ steps.python.outputs.vulnerability_count }} vulnerabilities"
-        echo "${{ steps.python.outputs.issues_created }} new jira issues created"
+    #- name: Review Scan Results
+      #shell: bash
+      #run: |
+        #echo " CodeQL scan identified ${{ steps.python.outputs.vulnerability_count }} vulnerabilities"
+        #echo "${{ steps.python.outputs.issues_created }} new jira issues created"
