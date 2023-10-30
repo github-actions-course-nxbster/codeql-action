@@ -18,14 +18,15 @@ GITHUB_REPOSITORY = os.environ['GITHUB_REPOSITORY']
 jiraOptions = {'server': JIRA_BASE_URL}
 jira = JIRA(options=jiraOptions, basic_auth=( 
     JIRA_USER_EMAIL, JIRA_API_TOKEN)) 
-print(jira.fields())
+#print(jira.fields())
 
 #Get existing issues in Jira Project
-issues = []
+jira_issues = []
 jql_str = 'project = {project}'.format(project = JIRA_PROJECT_NAME)
 for singleIssue in jira.search_issues(jql_str=jql_str): 
     print(singleIssue.fields.customfield_10034)
-    issues.append(singleIssue.fields.summary)
+    print(singleIssue.fields.status)
+    jira_issues.append(singleIssue.fields.summary)
 
 #Set up GitHub security API Request
 github_headers = {"Authorization" : "token {}".format(GITHUB_TOKEN)}
@@ -36,9 +37,10 @@ alerts_response = requests.get(github_alerts_api_url, headers=github_headers)
 alerts_response_json = json.loads(alerts_response.content)
 print(alerts_response_json)
 
-#Resolve open Jira issues that have have been addressed
-
 #Add newly identified CodeQL alerts to Jira 
+
+
+#Resolve open Jira issues that have have been addressed
 
 #Read in Sarif File
 #sarif_data = loader.load_sarif_file('../results/csharp.sarif')
